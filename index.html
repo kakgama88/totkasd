@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Gama'88</title>
 
-  <!-- ICON & THUMBNAIL PREVIEW LINK (OPSIONAL) -->
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="apple-touch-icon" href="logo.png">
   <meta property="og:type" content="website">
@@ -336,8 +335,6 @@
     .qr-hint { margin-top: 3px; font-size: 11px; color: var(--text-label); }
 
     .btn-download-glass { width: 100%; margin-top: 12px; padding: 10.5px 14px; background: linear-gradient(135deg, rgba(22, 101, 52, 0.92) 0%, rgba(21, 128, 61, 0.88) 55%, rgba(202, 138, 4, 0.9) 100%); border: 1.5px solid rgba(255, 255, 255, 0.65); border-radius: 13px; color: #ffffff; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 7px; cursor: pointer; }
-    .mid-ticker-bar { margin-top: 14px; width: 100%; background: linear-gradient(135deg, rgba(20, 83, 45, 0.92) 0%, rgba(21, 128, 61, 0.88) 55%, rgba(202, 138, 4, 0.9) 100%); border: 1.5px solid rgba(254, 240, 138, 0.6); border-radius: 14px; padding: 8px 0; display: flex; align-items: center; overflow: hidden; }
-    .mid-ticker-badge { flex-shrink: 0; margin: 0 8px 0 9px; padding: 3px 9px; border-radius: 999px; background: #fef08a; color: #14532d; font-size: 9.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
     .participant-card-box { margin-top: 14px; background: var(--pcard-bg); border: 1.5px solid rgba(34, 197, 94, 0.35); border-radius: 18px; overflow: hidden; }
     .participant-card-header { background: linear-gradient(135deg, rgba(20, 83, 45, 0.94) 0%, rgba(22, 101, 52, 0.9) 65%, rgba(202, 138, 4, 0.92) 100%); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; color: #ffffff; }
     .participant-card-title { display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 700; text-transform: uppercase; color: #fef08a; }
@@ -366,7 +363,7 @@
 
     @media print {
       body { background: #ffffff !important; color: #14281d !important; padding: 0 !important; }
-      .sticky-topbar, .wa-floating-btn, .ambient-bg, #promoModal, #roomPhotoModal, #searchSection, .no-print, .footer, .promo-ticker-bar, .inline-promo-section, .mid-ticker-bar { display: none !important; }
+      .sticky-topbar, .wa-floating-btn, .ambient-bg, #promoModal, #roomPhotoModal, #searchSection, .no-print, .footer, .promo-ticker-bar, .inline-promo-section { display: none !important; }
       #resultSection { display: block !important; padding: 0; max-width: 100%; }
       .result-card, .participant-card-box { background: #ffffff !important; box-shadow: none; border: 2px solid #16a34a; }
     }
@@ -579,18 +576,6 @@
           <div class="qr-white-frame"><div id="qrcode"></div></div>
           <div id="qrTextLabel" class="qr-code-text">-</div>
           <div class="qr-hint">Tunjukkan QR ini kepada panitia saat registrasi</div>
-          <button type="button" class="btn-download-glass no-print" onclick="unduhKodeQR()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-            <span>Unduh Kode QR</span>
-          </button>
-        </div>
-
-        <div class="mid-ticker-bar no-print">
-          <span class="mid-ticker-badge">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
-            <span>INFO</span>
-          </span>
-          <div class="ticker-viewport"><div id="midTickerTrack" class="ticker-track"></div></div>
         </div>
 
         <div class="participant-card-box">
@@ -890,15 +875,15 @@
     const baseRunningText = [
       "Yuk persiapkan ujian lebih matang! <strong>Daftar Program Bimbingan Belajar Intensif TKA SD</strong> sekarang &amp; dapatkan diskon khusus peserta Try Out!",
       "Ajak teman &amp; kerabatmu bergabung! Konsultasi gratis dan info pendaftaran silakan hubungi <strong>Panitia di Meja Informasi</strong>.",
-      "Klik tombol <strong>Unduh Kode QR</strong> &amp; <strong>Unduh Kartu Peserta</strong> agar tersimpan otomatis di galeri HP kamu."
+      "Klik tombol <strong>Unduh Kartu Peserta</strong> agar kartu ujian &amp; kode QR tersimpan otomatis di galeri HP kamu."
     ];
 
     function initRunningText() {
       const list = baseRunningText.slice();
       if (SERVER_INIT_DATA && SERVER_INIT_DATA.promoTeks) list.unshift("<strong>" + SERVER_INIT_DATA.promoTeks + "</strong>");
       const itemsHtml = list.map(t => `<span class="ticker-item"><span>${t}</span><span class="ticker-sep">&#10022;</span></span>`).join('');
-      document.getElementById('tickerTrack').innerHTML = itemsHtml + itemsHtml;
-      document.getElementById('midTickerTrack').innerHTML = itemsHtml + itemsHtml;
+      const bottomTicker = document.getElementById('tickerTrack');
+      if (bottomTicker) bottomTicker.innerHTML = itemsHtml + itemsHtml;
     }
 
     function salinTeks(elementId, btnEl) {
@@ -1198,42 +1183,6 @@
     }
 
     const CANVAS_FONT_ROUND = '"Arial Rounded MT Bold", "Nunito", "Varela Round", sans-serif';
-
-    function unduhKodeQR() {
-      if (!currentPeserta) return;
-      const logoImg = getReadyLogoImage();
-      const canvas = document.createElement('canvas'); canvas.width = 760; canvas.height = 960;
-      const ctx = canvas.getContext('2d');
-      const bgGrad = ctx.createLinearGradient(0, 0, 760, 960);
-      bgGrad.addColorStop(0, '#e7f6ec'); bgGrad.addColorStop(0.5, '#f7fae8'); bgGrad.addColorStop(1, '#fef9c3');
-      ctx.fillStyle = bgGrad; ctx.fillRect(0, 0, 760, 960);
-      roundRectPath(ctx, 40, 40, 680, 880, 36); ctx.fillStyle = '#ffffff'; ctx.fill(); ctx.lineWidth = 4; ctx.strokeStyle = '#16a34a'; ctx.stroke();
-      ctx.save(); roundRectPath(ctx, 40, 40, 680, 155, 36); ctx.clip();
-      const headGrad = ctx.createLinearGradient(40, 40, 720, 195);
-      headGrad.addColorStop(0, '#14532d'); headGrad.addColorStop(0.55, '#15803d'); headGrad.addColorStop(1, '#ca8a04');
-      ctx.fillStyle = headGrad; ctx.fillRect(40, 40, 680, 155); ctx.restore();
-      const drawnLogoW = drawDirectLogoOnCanvas(ctx, logoImg, 72, 117, 110, 88);
-      if (drawnLogoW > 0) {
-        const textX = 72 + drawnLogoW + 18; ctx.textAlign = 'left';
-        ctx.fillStyle = '#fef08a'; ctx.font = 'bold 25px ' + CANVAS_FONT_ROUND; ctx.fillText('KODE QR PRESENSI KEHADIRAN', textX, 108);
-        ctx.fillStyle = '#ffffff'; ctx.font = 'bold 19px ' + CANVAS_FONT_ROUND; ctx.fillText('Try Out Tes Kemampuan Akademik (TKA) SD', textX, 146);
-      } else {
-        ctx.textAlign = 'center';
-        ctx.fillStyle = '#fef08a'; ctx.font = 'bold 28px ' + CANVAS_FONT_ROUND; ctx.fillText('KODE QR PRESENSI KEHADIRAN', 380, 106);
-        ctx.fillStyle = '#ffffff'; ctx.font = 'bold 21px ' + CANVAS_FONT_ROUND; ctx.fillText('Try Out Tes Kemampuan Akademik (TKA) SD', 380, 148);
-      }
-      roundRectPath(ctx, 165, 235, 430, 430, 26); ctx.fillStyle = '#f0fdf4'; ctx.fill(); ctx.lineWidth = 3; ctx.strokeStyle = '#86efac'; ctx.stroke();
-      const noPesertaStr = String(currentPeserta.noPeserta || '-');
-      const { size, grid } = QRGenerator.getMatrix(noPesertaStr);
-      const cellSize = Math.floor(360 / size), actualQR = cellSize * size, startX = Math.floor((760 - actualQR) / 2), startY = Math.floor(235 + (430 - actualQR) / 2);
-      ctx.fillStyle = '#ffffff'; ctx.fillRect(startX - 16, startY - 16, actualQR + 32, actualQR + 32);
-      ctx.fillStyle = '#0f172a';
-      for (let r = 0; r < size; r++) for (let c = 0; c < size; c++) if (grid[r][c]) ctx.fillRect(startX + c * cellSize, startY + r * cellSize, cellSize, cellSize);
-      ctx.textAlign = 'center'; ctx.fillStyle = '#14532d'; ctx.font = 'bold 34px "Courier New", monospace'; ctx.fillText(noPesertaStr, 380, 730);
-      ctx.fillStyle = '#14281d'; ctx.font = 'bold 26px ' + CANVAS_FONT_ROUND; drawWrappedText(ctx, String(currentPeserta.nama || '-').toUpperCase(), 380, 780, 600, 34, 2);
-      ctx.fillStyle = '#4d7c0f'; ctx.font = 'bold 20px ' + CANVAS_FONT_ROUND; ctx.fillText(String(currentPeserta.sekolah || '-').toUpperCase(), 380, 862);
-      triggerCanvasDownload(canvas, 'QR_Presensi_' + noPesertaStr.replace(/[^a-zA-Z0-9_-]/g, '_') + '.png', 'Kode QR Presensi Kehadiran');
-    }
 
     function unduhKartuPeserta() {
       if (!currentPeserta) return;
