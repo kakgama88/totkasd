@@ -622,7 +622,7 @@
             </div>
             <button type="button" class="btn-download-glass no-print" onclick="unduhKartuPeserta()">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-              <span>Unduh QR Presensi & Kartu Peserta</span>
+              <span>Unduh Kartu Peserta</span>
             </button>
           </div>
         </div>
@@ -1187,13 +1187,13 @@
     function unduhKartuPeserta() {
       if (!currentPeserta) return;
       const logoImg = getReadyLogoImage();
-      const canvas = document.createElement('canvas'); canvas.width = 900; canvas.height = 960;
+      const canvas = document.createElement('canvas'); canvas.width = 900; canvas.height = 1035;
       const ctx = canvas.getContext('2d');
-      const bgGrad = ctx.createLinearGradient(0, 0, 900, 960);
+      const bgGrad = ctx.createLinearGradient(0, 0, 900, 1035);
       bgGrad.addColorStop(0, '#e7f6ec'); bgGrad.addColorStop(0.5, '#f7fae8'); bgGrad.addColorStop(1, '#fef9c3');
-      ctx.fillStyle = bgGrad; ctx.fillRect(0, 0, 900, 960);
+      ctx.fillStyle = bgGrad; ctx.fillRect(0, 0, 900, 1035);
 
-      roundRectPath(ctx, 40, 40, 820, 880, 36);
+      roundRectPath(ctx, 40, 40, 820, 955, 36);
       ctx.fillStyle = '#ffffff'; ctx.fill();
       ctx.lineWidth = 4; ctx.strokeStyle = '#16a34a'; ctx.stroke();
 
@@ -1205,23 +1205,14 @@
       ctx.fillStyle = headGrad; ctx.fillRect(40, 40, 820, 165);
       ctx.restore();
 
-      const drawnLogoW = drawDirectLogoOnCanvas(ctx, logoImg, 76, 122, 115, 92);
-      const textStartX = drawnLogoW > 0 ? (76 + drawnLogoW + 18) : 80;
+      // Logo diperbesar di bagian header
+      const drawnLogoW = drawDirectLogoOnCanvas(ctx, logoImg, 72, 122, 235, 112);
+      const textStartX = drawnLogoW > 0 ? (72 + drawnLogoW + 22) : 80;
       ctx.textAlign = 'left';
       ctx.fillStyle = '#fef08a'; ctx.font = 'bold 29px ' + CANVAS_FONT_ROUND;
       ctx.fillText('KARTU PESERTA UJIAN', textStartX, 112);
       ctx.fillStyle = '#ffffff'; ctx.font = 'bold 19px ' + CANVAS_FONT_ROUND;
       ctx.fillText('Try Out Tes Kemampuan Akademik (TKA) SD', textStartX, 150);
-
-      roundRectPath(ctx, 620, 74, 205, 86, 18);
-      ctx.fillStyle = 'rgba(20, 83, 45, 0.45)'; ctx.fill();
-      ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(254, 240, 138, 0.75)'; ctx.stroke();
-      const noPesertaStr = String(currentPeserta.noPeserta || '-');
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#fef08a'; ctx.font = 'bold 16px ' + CANVAS_FONT_ROUND;
-      ctx.fillText('NO. PESERTA', 722, 104);
-      ctx.fillStyle = '#ffffff'; ctx.font = 'bold 23px "Courier New", monospace';
-      ctx.fillText(noPesertaStr, 722, 140);
 
       function drawFieldBox(x, y, w, h, label, value, isHighlight, isMono, customFontSize) {
         roundRectPath(ctx, x, y, w, h, 20);
@@ -1236,36 +1227,38 @@
         }
         ctx.textAlign = 'left';
         ctx.fillStyle = '#64748b'; ctx.font = 'bold 16px ' + CANVAS_FONT_ROUND;
-        ctx.fillText(label, x + 22, y + 34);
+        ctx.fillText(label, x + 22, y + 32);
         const fSize = customFontSize || (isMono ? 30 : 25);
         ctx.fillStyle = '#14532d';
         ctx.font = isMono ? ('bold ' + fSize + 'px "Courier New", monospace') : ('bold ' + fSize + 'px ' + CANVAS_FONT_ROUND);
-        drawWrappedText(ctx, value, x + 22, y + 72, w - 44, 30, 2);
+        drawWrappedText(ctx, value, x + 22, y + 68, w - 44, 28, 2);
       }
 
+      const noPesertaStr = String(currentPeserta.noPeserta || '-');
       const lokasiRuang = String(currentPeserta.lantai || '-') + ' — ' + String(currentPeserta.ruang || '-');
       const sesiRuang = String(currentPeserta.sesi || '-') + ' • ' + lokasiRuang;
 
-      // Kolom Kiri: Nama Peserta & Asal Sekolah
-      drawFieldBox(80, 235, 465, 118, 'NAMA PESERTA', String(currentPeserta.nama || '-').toUpperCase(), false, false, 23);
-      drawFieldBox(80, 371, 465, 118, 'ASAL SEKOLAH', String(currentPeserta.sekolah || '-').toUpperCase(), false, false, 23);
+      // Kolom Kiri: Nama Peserta -> Nomor Peserta -> Asal Sekolah
+      drawFieldBox(80, 235, 465, 108, 'NAMA PESERTA', String(currentPeserta.nama || '-').toUpperCase(), false, false, 22);
+      drawFieldBox(80, 359, 465, 96, 'NO. PESERTA', noPesertaStr, true, true, 26);
+      drawFieldBox(80, 471, 465, 108, 'ASAL SEKOLAH', String(currentPeserta.sekolah || '-').toUpperCase(), false, false, 22);
 
-      // Kolom Kanan: Kode QR Presensi sejajar dengan Nama & Asal Sekolah
-      roundRectPath(ctx, 565, 235, 255, 254, 20);
+      // Kolom Kanan: Kode QR Presensi sejajar tinggi dengan ketiga kotak di kiri
+      roundRectPath(ctx, 565, 235, 255, 344, 20);
       ctx.fillStyle = '#f0fdf4'; ctx.fill();
       ctx.lineWidth = 2.5; ctx.strokeStyle = '#4ade80'; ctx.stroke();
 
       ctx.textAlign = 'center';
-      ctx.fillStyle = '#15803d'; ctx.font = 'bold 14px ' + CANVAS_FONT_ROUND;
-      ctx.fillText('QR PRESENSI', 692.5, 263);
+      ctx.fillStyle = '#15803d'; ctx.font = 'bold 15px ' + CANVAS_FONT_ROUND;
+      ctx.fillText('QR PRESENSI', 692.5, 268);
 
       const { size, grid } = QRGenerator.getMatrix(noPesertaStr);
-      const cell = Math.floor(168 / size);
+      const cell = Math.floor(184 / size);
       const actualMini = cell * size;
       const qrX = Math.floor(565 + (255 - actualMini) / 2);
-      const qrY = Math.floor(276 + (200 - actualMini) / 2);
+      const qrY = Math.floor(285 + (245 - actualMini) / 2);
       ctx.fillStyle = '#ffffff';
-      ctx.fillRect(qrX - 10, qrY - 10, actualMini + 20, actualMini + 20);
+      ctx.fillRect(qrX - 12, qrY - 12, actualMini + 24, actualMini + 24);
       ctx.fillStyle = '#0f172a';
       for (let r = 0; r < size; r++) {
         for (let c = 0; c < size; c++) {
@@ -1273,23 +1266,26 @@
         }
       }
 
+      ctx.fillStyle = '#166534'; ctx.font = 'bold 13px ' + CANVAS_FONT_ROUND;
+      ctx.fillText('Scan saat registrasi', 692.5, 557);
+
       // Baris Tengah: Sesi & Ruang Ujian
-      drawFieldBox(80, 509, 740, 112, 'SESI & RUANG UJIAN', sesiRuang, false, false, 25);
+      drawFieldBox(80, 599, 740, 106, 'SESI & RUANG UJIAN', sesiRuang, false, false, 24);
 
       // Baris Akun: Username & Password
-      drawFieldBox(80, 641, 355, 115, 'USERNAME', String(currentPeserta.username || '-'), true, true, 30);
-      drawFieldBox(465, 641, 355, 115, 'PASSWORD', String(currentPeserta.password || '-'), true, true, 30);
+      drawFieldBox(80, 723, 355, 110, 'USERNAME', String(currentPeserta.username || '-'), true, true, 30);
+      drawFieldBox(465, 723, 355, 110, 'PASSWORD', String(currentPeserta.password || '-'), true, true, 30);
 
       // Baris Bawah: Petunjuk Singkat
-      roundRectPath(ctx, 80, 776, 740, 112, 20);
+      roundRectPath(ctx, 80, 851, 740, 108, 20);
       ctx.fillStyle = '#f0fdf4'; ctx.fill();
       ctx.lineWidth = 2; ctx.strokeStyle = '#86efac'; ctx.stroke();
 
       ctx.textAlign = 'left';
       ctx.fillStyle = '#14532d'; ctx.font = 'bold 18px ' + CANVAS_FONT_ROUND;
-      ctx.fillText('PETUNJUK PRESENSI & AKUN CBT', 106, 812);
+      ctx.fillText('PETUNJUK PRESENSI & AKUN CBT', 106, 886);
       ctx.fillStyle = '#3f6212'; ctx.font = 'bold 16px ' + CANVAS_FONT_ROUND;
-      drawWrappedText(ctx, 'Simpan kartu ini di galeri HP. Tunjukkan Kode QR di atas kepada panitia saat masuk ruangan dan gunakan Username & Password untuk login ujian.', 106, 842, 688, 24, 2);
+      drawWrappedText(ctx, 'Simpan kartu ini di galeri HP. Tunjukkan Kode QR di atas kepada panitia saat masuk ruangan dan gunakan Username & Password untuk login ujian.', 106, 916, 688, 24, 2);
 
       triggerCanvasDownload(canvas, 'Kartu_Peserta_' + String(currentPeserta.nama || 'Peserta').trim().replace(/[^a-zA-Z0-9_-]/g, '_') + '.png', 'Kartu Peserta Ujian');
     }
