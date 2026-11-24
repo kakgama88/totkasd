@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Gama'88 X FuntasticJS</title>
+  <title>Gama'88</title>
 
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="apple-touch-icon" href="logo.png">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Informasi Ruangan Ujian - GAMA'88 X FUNTASTICJS">
+  <meta property="og:title" content="Informasi Ruangan Ujian - Try Out TKA SD">
   <meta property="og:description" content="Cek lokasi lantai, ruang ujian, kode QR presensi, dan unduh kartu peserta ujian.">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -62,7 +62,7 @@
       --topbar-bg: rgba(9, 25, 16, 0.76);
     }
 
-    * {
+- {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -442,8 +442,8 @@
   <div id="searchSection">
     <div class="search-card">
       <header class="hero-header">
-        <h1 class="hero-title">INFORMASI RUANGAN UJIAN</h1>
-        <p class="hero-subtitle">GAMA'88 X FUNTASTICJS</p>
+        <h1 class="hero-title">INFORMASI TRY OUT TKA SD</h1>
+        <p class="hero-subtitle">GAMA'88 X KKG Gugus 2 Jatiasih</p>
       </header>
 
       <div class="search-body">
@@ -455,7 +455,7 @@
               <path d="m9 14 2 2 4-4"/>
             </svg>
           </span>
-          <span>CARI DATA PESERTA UJIAN</span>
+          <span>CARI DATA PESERTA TRY OUT TKA</span>
         </div>
 
         <div class="form-group">
@@ -482,7 +482,7 @@
 
         <button type="button" id="btnCek" class="btn-primary" disabled>
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="11.5" cy="14.5" r="2.5"/><path d="M13.3 16.3 15 18"/></svg>
-          <span>Cek Informasi Ruangan</span>
+          <span>Cek Informasi Try Out TKA</span>
         </button>
       </div>
     </div>
@@ -514,7 +514,7 @@
         <div>
           <div class="verified-badge">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#14532d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
-            <span>Peserta Terverifikasi</span>
+            <span>Peserta Try Out TKA SD</span>
           </div>
           <div id="resNama" class="student-name">-</div>
           <div id="resSekolah" class="school-name">-</div>
@@ -584,7 +584,7 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
               <span>KARTU PESERTA UJIAN</span>
             </div>
-            <span class="participant-card-tag">AKUN CBT</span>
+            <span class="participant-card-tag">AKUN TO.GAMA88.ID</span>
           </div>
 
           <div class="participant-card-body">
@@ -661,7 +661,7 @@
     </div>
   </div>
 
-  <footer class="footer">&copy; GAMA'88 X FUNTASTICJS. Hak Cipta Dilindungi.</footer>
+  <footer class="footer">&copy; GAMA'88 X Gugus 2 Jatiasih. Hak Cipta Dilindungi.</footer>
 
   <div class="promo-ticker-bar no-print">
     <span class="ticker-badge">
@@ -672,11 +672,8 @@
   </div>
 
   <script>
-    // =========================================================================
-    // TEMPELKAN URL WEB APP APPS SCRIPT (/exec) GAMA'88 X FUNTASTICJS DI SINI:
-    // =========================================================================
-    const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbyKGHhggeehg1EWJc3nsd9HkKgq_zEXN-t9dvtAikPKBsquR1rT6IZKo3_Ph05cgo3-zQ/exec';
-    const CACHE_STORAGE_KEY = 'gama88_funtasticjs_cache_v1';
+    const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbzX4PEWtI7rPLbPHzPouvygDvWYwqNfJgXcA8mMnxsp_7lmcPVZowiLGVytwbT3GkkcrQ/exec';
+    const CACHE_STORAGE_KEY = 'tka_portal_cache_v1';
     const CACHE_FRESH_MS = 10 * 60 * 1000;
     const CACHE_MAX_AGE_MS = 12 * 60 * 60 * 1000;
 
@@ -698,7 +695,7 @@
       const waNum = (SERVER_INIT_DATA && SERVER_INIT_DATA.waNumber) ? String(SERVER_INIT_DATA.waNumber).replace(/\D/g, '') : '';
       let pesan = (SERVER_INIT_DATA && SERVER_INIT_DATA.waText)
         ? SERVER_INIT_DATA.waText
-        : "Halo Admin Panitia GAMA'88 X FUNTASTICJS, saya ingin bertanya terkait informasi ruangan ujian.";
+        : 'Halo Admin Panitia Try Out TKA SD, saya ingin bertanya terkait informasi ruangan ujian.';
 
       if (currentPeserta && currentPeserta.nama) {
         pesan += '\n\nData Peserta:\n' +
@@ -841,11 +838,11 @@
     function toggleTema() {
       const nextDark = !document.body.classList.contains('dark-mode');
       applyTheme(nextDark);
-      try { localStorage.setItem('gama88_theme_mode', nextDark ? 'dark' : 'light'); } catch (e) {}
+      try { localStorage.setItem('tka_theme_mode', nextDark ? 'dark' : 'light'); } catch (e) {}
     }
 
     (function initSavedTheme() {
-      try { if (localStorage.getItem('gama88_theme_mode') === 'dark') applyTheme(true); } catch (e) {}
+      try { if (localStorage.getItem('tka_theme_mode') === 'dark') applyTheme(true); } catch (e) {}
     })();
 
     function ensureLogoLoaded() {
@@ -876,8 +873,8 @@
     }
 
     const baseRunningText = [
-      "Selamat datang peserta <strong>GAMA'88 X FUNTASTICJS</strong>! Silakan cek jadwal sesi, lokasi ruangan, dan akun ujian Anda di halaman ini.",
-      "Ajak teman &amp; kerabatmu bergabung bersama <strong>GAMA'88 X FUNTASTICJS</strong>! Konsultasi gratis dan info pendaftaran silakan hubungi <strong>Panitia di Meja Informasi</strong>.",
+      "Yuk persiapkan ujian lebih matang! <strong>Daftar Program Bimbingan Belajar Intensif TKA SD</strong> sekarang &amp; dapatkan diskon khusus peserta Try Out!",
+      "Ajak teman &amp; kerabatmu bergabung! Konsultasi gratis dan info pendaftaran silakan hubungi <strong>Panitia di Meja Informasi</strong>.",
       "Klik tombol <strong>Unduh Kartu Peserta</strong> agar kartu ujian &amp; kode QR tersimpan otomatis di galeri HP kamu."
     ];
 
@@ -1208,14 +1205,15 @@
       ctx.fillStyle = headGrad; ctx.fillRect(40, 40, 820, 190);
       ctx.restore();
 
+      // Logo diperbesar lagi di bagian header
       const drawnLogoW = drawDirectLogoOnCanvas(ctx, logoImg, 66, 135, 355, 148);
       const textStartX = drawnLogoW > 0 ? (66 + drawnLogoW + 20) : 80;
       const titleAvailW = 834 - textStartX;
       ctx.textAlign = 'left';
       ctx.fillStyle = '#fef08a'; ctx.font = 'bold 27px ' + CANVAS_FONT_ROUND;
       ctx.fillText('KARTU PESERTA UJIAN', textStartX, 123);
-      ctx.fillStyle = '#ffffff'; ctx.font = 'bold 19px ' + CANVAS_FONT_ROUND;
-      drawWrappedText(ctx, "GAMA'88 X FUNTASTICJS", textStartX, 158, titleAvailW, 24, 2);
+      ctx.fillStyle = '#ffffff'; ctx.font = 'bold 17px ' + CANVAS_FONT_ROUND;
+      drawWrappedText(ctx, 'Try Out Tes Kemampuan Akademik (TKA) SD', textStartX, 156, titleAvailW, 23, 2);
 
       function drawFieldBox(x, y, w, h, label, value, isHighlight, isMono, customFontSize) {
         roundRectPath(ctx, x, y, w, h, 20);
@@ -1246,7 +1244,7 @@
       drawFieldBox(80, 384, 465, 96, 'NO. PESERTA', noPesertaStr, true, true, 26);
       drawFieldBox(80, 496, 465, 108, 'ASAL SEKOLAH', String(currentPeserta.sekolah || '-').toUpperCase(), false, false, 22);
 
-      // Kolom Kanan: Kode QR Presensi
+      // Kolom Kanan: Kode QR Presensi sejajar tinggi dengan ketiga kotak di kiri
       roundRectPath(ctx, 565, 260, 255, 344, 20);
       ctx.fillStyle = '#f0fdf4'; ctx.fill();
       ctx.lineWidth = 2.5; ctx.strokeStyle = '#4ade80'; ctx.stroke();
@@ -1385,11 +1383,6 @@
 
     document.addEventListener('DOMContentLoaded', function() {
       initRunningText();
-
-      if (!GAS_API_URL || GAS_API_URL.indexOf('PASTE_URL_WEB_APP') !== -1 || GAS_API_URL.indexOf('http') !== 0) {
-        selectSekolah.innerHTML = '<option value="">URL Apps Script belum diisi di index.html</option>';
-        return;
-      }
 
       const forceRefresh = window.location.search.indexOf('refresh=1') !== -1;
       const cached = bacaCacheBrowser();
